@@ -40,6 +40,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - run: pwd
+
       - name: Set up toolchain
         uses: actions-rs/toolchain@v1
         with:

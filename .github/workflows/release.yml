@@ -28,8 +28,6 @@ jobs:
           POSTGRES_PORT: 5432
       rest:
         image: postgrest/postgrest:v7.0.1
-        depends_on:
-          - db
         env:
           PGRST_DB_URI: postgres://postgres:postgres@db:5432/postgres
           PGRST_DB_SCHEMA: public, personal

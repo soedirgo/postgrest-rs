@@ -14,14 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-          components: rustfmt, clippy
-
       - uses: actions/setup-node@v1
         with:
           node-version: "12.x"
@@ -38,5 +30,6 @@ jobs:
 
       - name: Publish on crates.io
         run: |
-          cargo login ${{ secrets.CARGO_API_TOKEN }}
-          cargo publish
+          cargo install cargo-bump
+          cargo bump
+          cargo publish --token ${{ secrets.CARGO_API_TOKEN }}

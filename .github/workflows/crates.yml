@@ -1,0 +1,29 @@
+name: crates.io
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  publish:
+    name: Publish on crates.io
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          components: rustfmt, clippy
+
+      - name: Publish on crates.io
+        run: |
+          cargo install cargo-bump
+          cargo bump ${GITHUB_REF#v}
+          cargo publish --token ${{ secrets.CARGO_API_TOKEN }} --dry-run

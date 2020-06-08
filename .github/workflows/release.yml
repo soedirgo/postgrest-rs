@@ -27,6 +27,19 @@ jobs:
           override: true
           components: rustfmt, clippy
 
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - run: |
+          npm i -g semantic-release
+          npx semantic-release -p             \
+            @semantic-release/commit-analyzer \
+            @semantic-release/github          \
+            @semantic-release/release-notes-generator
+
+      - name: Release on GitHub
+
       - name: Publish on crates.io
         run: |
           cargo login ${{ secrets.CARGO_API_TOKEN }}

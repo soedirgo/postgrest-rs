@@ -9,12 +9,7 @@ jobs:
   release:
     name: Release
 
-    strategy:
-      matrix:
-        # macos-latest doesn't have docker-compose, no manifest (?) for windows-latest
-        platform: [ubuntu-latest]
-
-    runs-on: ${{ matrix.platform }}
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -44,4 +39,4 @@ jobs:
       - name: Publish on crates.io
         run: |
           cargo login ${{ secrets.CARGO_API_TOKEN }}
-          cargo publish --dry-run
+          cargo publish

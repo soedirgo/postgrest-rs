@@ -25,4 +25,4 @@ jobs:
       - name: Publish on crates.io
         run: |
           echo ${GITHUB_REF#v}
-          cargo publish --token ${{ secrets.CARGO_API_TOKEN }} --allow-dirty --dry-run
+          cargo publish --dry-run --token ${{ secrets.CARGO_API_TOKEN }} --allow-dirty

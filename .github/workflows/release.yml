@@ -27,9 +27,3 @@ jobs:
             @semantic-release/release-notes-generator
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish on crates.io
-        run: |
-          cargo install cargo-bump
-          cargo bump
-          cargo publish --token ${{ secrets.CARGO_API_TOKEN }}

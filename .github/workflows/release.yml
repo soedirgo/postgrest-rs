@@ -19,15 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build the stack
-        run: docker-compose -f ./tests/db/docker-compose.yml up -d
-
-      # HACK: Maybe find a more reliable way to do this
-      - name: Sleep for 30 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: "30s"
-
       - name: Set up toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -38,5 +29,5 @@ jobs:
 
       - name: Publish on crates.io
         run: |
-          cargo login ${{ CARGO_API_TOKEN }}
+          cargo login ${{ secrets.CARGO_API_TOKEN }}
           cargo publish --dry-run

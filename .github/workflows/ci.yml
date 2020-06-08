@@ -13,25 +13,6 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
 
-    services:
-      db:
-        image: postgres:12
-        volumes:
-          - .:/docker-entrypoint-initdb.d/
-        env:
-          POSTGRES_DB: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_PORT: 5432
-      rest:
-        image: postgrest/postgrest:v7.0.1
-        depends_on:
-          - db
-        env:
-          PGRST_DB_URI: postgres://postgres:postgres@db:5432/postgres
-          PGRST_DB_SCHEMA: public, personal
-          PGRST_DB_ANON_ROLE: postgres
-
     steps:
       - uses: actions/checkout@v2
 
@@ -42,6 +23,15 @@ jobs:
           toolchain: stable
           override: true
           components: rustfmt, clippy
+
+      - name: Build the stack
+        run: docker-compose -f ./tests/db/docker-compose.yml up -d
+
+      # HACK: Maybe find a more reliable way to do this
+      - name: Sleep for 30 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: "30s"
 
       - name: Cache cargo registry
         uses: actions/cache@v1

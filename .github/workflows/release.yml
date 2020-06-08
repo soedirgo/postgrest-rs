@@ -1,14 +1,17 @@
-name: CI
+name: Release
 
-on: pull_request
+on:
+  push:
+    branches:
+      - master
 
 jobs:
-  test:
-    name: Test
+  release:
+    name: Release
 
     strategy:
       matrix:
-        # macos-latest doesn't have docker-compose, no manifest for windows-latest
+        # macos-latest doesn't have docker-compose, no manifest (?) for windows-latest
         platform: [ubuntu-latest]
 
     runs-on: ${{ matrix.platform }}

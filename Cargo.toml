@@ -17,3 +17,4 @@ tokio = { version = "0.2", features = ["full"] }
 
 [dev-dependencies]
 json = "0.12"
+cargo-bump = "1.1"

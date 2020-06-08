@@ -24,6 +24,5 @@ jobs:
 
       - name: Publish on crates.io
         run: |
-          cargo install cargo-bump
-          cargo bump ${GITHUB_REF#v}
+          echo ${GITHUB_REF#v}
           cargo publish --token ${{ secrets.CARGO_API_TOKEN }} --allow-dirty --dry-run

@@ -26,4 +26,4 @@ jobs:
         run: |
           cargo install cargo-bump
           cargo bump ${GITHUB_REF#v}
-          cargo publish --token ${{ secrets.CARGO_API_TOKEN }} --dry-run
+          cargo publish --token ${{ secrets.CARGO_API_TOKEN }} --allow-dirty --dry-run
